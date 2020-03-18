@@ -8,6 +8,16 @@
 	box-sizing: border-box;
 }
 
+.editPost
+{
+	display: none;
+}
+
+.editButton
+{
+	display: none;
+}
+
 html
 {
 	background-color: #4b4b4b;

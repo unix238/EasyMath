@@ -86,10 +86,18 @@
 				<div class="card">
 					<div class="card-header">
 						<a href="{{url_for('deletePost', postID=i.id)}}"><i class="ion-android-close icon-small"></i></a>
+						<a onclick="editBodyPost()"><i class="ion-edit icon-small"></i></a>
 						<h4>{{profile.name}} {{profile.surname}}</h4>   <!-- User name from DB-->
 					</div>
 				<div class="card-body">
-					<p>{{i.body}}</p> <!--Message from textarea-->
+					<p><form action="{{url_for('editPosts', postID=i.id)}}" method="POST">
+						<p>
+							<input type="text" class='editPost' name="body" value="{{i.body}}">
+							<input type="submit" value="edit" class='editButton'>
+						</p>
+						<div class='postTexts'>{{i.body}}</div>
+					</form>
+				</p> <!--Message from textarea-->
 					</div>
 				</div>
 			</center>

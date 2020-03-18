@@ -185,3 +185,14 @@ def contactUsView():
 	return render_template('contact.html', messages = messages)
 
 
+@app.route('/edit-posts-<postID>-post', methods=['POST'])
+def editPosts(postID):
+	text = request.form['body']
+
+	post = models.Posts.query.get(postID)
+	post.body = text
+
+	db.session.commit()
+
+	return redirect(url_for('profile',id=current_user.id))
+	
