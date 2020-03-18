@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start</title>
+</head>
+<body>
+
+{%for i in allQuestions%}
+    <ul>
+        <li>
+           {{i.id}} ){%if current_user.q1 == False and i.id == 1%}<a href="{{url_for('test.questionDetail', questionId=i.id)}}">{{i.question}}</a>{%endif%}
+            {%if current_user.q2 == False and i.id == 2%}<a href="{{url_for('test.questionDetail', questionId=i.id)}}">{{i.question}}</a>{%endif%}
+            {%if current_user.q3 == False and i.id == 3%}<a href="{{url_for('test.questionDetail', questionId=i.id)}}">{{i.question}}</a>{%endif%}
+            {%if current_user.q4 == False and i.id == 4%}<a href="{{url_for('test.questionDetail', questionId=i.id)}}">{{i.question}}</a>{%endif%}
+            {%if current_user.q5 == False and i.id == 5%}<a href="{{url_for('test.questionDetail', questionId=i.id)}}">{{i.question}}</a>{%endif%}
+            {%if current_user.q6 == False and i.id == 6%}<a href="{{url_for('test.questionDetail', questionId=i.id)}}">{{i.question}}</a>{%endif%}
+            {%if current_user.q7 == False and i.id == 7%}<a href="{{url_for('test.questionDetail', questionId=i.id)}}">{{i.question}}</a>{%endif%}
+            {%if current_user.q8 == False and i.id == 8%}<a href="{{url_for('test.questionDetail', questionId=i.id)}}">{{i.question}}</a>{%endif%}
+            {%if current_user.q9 == False and i.id == 9%}<a href="{{url_for('test.questionDetail', questionId=i.id)}}">{{i.question}}</a>{%endif%}
+            {%if current_user.q10 == False and i.id == 10%}<a href="{{url_for('test.questionDetail', questionId=i.id)}}">{{i.question}}</a>{%endif%}
+        
+        </li>
+    </ul> 
+{%endfor%}
+
+    {%if current_user.q1 == True and current_user.q2 == True and current_user.q3 == True and current_user.q4 == True and current_user.q5 == True and current_user.q6 == True and current_user.q7 == True and current_user.q8 == True and current_user.q9 == True and current_user.q10 == True  %}
+        <a href="{{url_for('newPost')}}"><button>End Test</button></a>
+    {%else%}
+    when you finish the test a redirect button appears in the profile
+    {%endif%}
+<script>
+    let allQuestions =  '{{allQuestions}}'
+    let arr = []
+    function fetchData(array){
+        for(obj in array){
+            arr = arr.push(array[obj])
+            return arr
+        } 
+        console.log(arr)
+    }
+    fetchData()
+    console.log('{{allQuestions}}')
+</script>
+</body>
+</html>

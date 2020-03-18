@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="static/resources/styles/indexPage.css">
+        <link rel="stylesheet" type="text/css" href="static/resources/borrowed/css/normalize.css">
+        <link rel="stylesheet" type="text/css" href="static/resources/borrowed/css/grid.css">
+        <link rel="stylesheet" type="text/css" href="static/resources/borrowed/css/ionicons.min.css">
+        <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,300italic' rel='stylesheet' type='text/css'>
+        <title>EasyMath</title>
+    </head>
+    <body >
+        <header>
+            <nav>
+                <div class="row">
+                    <img src="static/resources/images/2.png" class="logo-black">
+                   
+                      <ul class="main-nav js--main-nav">
+                        <li><a href="{{url_for('index')}}">Main page</a></li>
+                        <li><a href="#contact">Contact us</a></li>
+                        {%if not current_user.is_authenticated%} 
+                        <li><a href="{{url_for('login')}}">Sign in</a></li>
+                        <li><a href="#start">Sign up</a></li>
+                        {%endif%}
+                        {%if current_user.is_authenticated%}
+                        <li><a href="{{url_for('profile', id=current_user.id)}}">Profile</a></li>
+                        {%endif%}
+                    </ul>
+                
+                </div>
+            </nav>
+            <div class="bg-text-box">
+                <h1>EasyMath <br> To learn how to solve.</h1>
+                {%if not current_user.is_authenticated%}
+                    <a class="btn btn-full" href="#start">Sign-up</a> 
+                    <a class="btn btn-ghost" href="#fitures">Show me more</a>
+                {%endif%}
+                {%if current_user.is_authenticated%}
+                    <a class="btn btn-full" href="#start">Start</a> 
+                    <a class="btn btn-ghost" href="#fitures">Our features</a>
+                {%endif%}
+                
+            </div>
+
+        </header>
+        <a name='fitures'></a>
+        <section class="section-features js--section-features" id="features">
+        
+            <div class="row">
+                <h2>EasyMath &mdash; to solve tasks</h2>
+            </div>
+            {%if not current_user.is_authenticated%}
+            <div class="row js--wp-1">
+            {%endif%}
+            {%if current_user.is_authenticated%}
+                <div class="row">
+            {%endif%}
+                <div class="col span-1-of-3 box">
+                    <i class="ion-ios-time-outline icon-big"></i>
+                    <h3>Time management</h3>
+                    <p>
+                        You're only twenty minutes away from improvement
+                    </p>
+                </div>
+                <div class="col span-1-of-3 box">
+                    <i class="ion-ios-lightbulb-outline icon-big"></i>
+                    <h3>Improving math skills</h3>
+                    <p>
+                        The methodology developed by teachers gives a tangible result. 
+                    </p>
+                </div>
+                <div class="col span-1-of-3 box">
+                    <i class="ion-ios-infinite icon-big"></i>
+                    <h3>Up to 365 days/year</h3>
+                    <p>
+                        Tests are available all year round
+                    </p>
+                </div>
+            </div>   
+            </div>
+        </section>
+
+        {%if not current_user.is_authenticated%}
+        <section class="section-plans">
+            <div class="row">
+                
+                <h2>Start upgrading math skills today</h2>
+                <a name='start'></a>
+                
+            </div>
+            <div class="row">
+
+                <div>
+                    
+                    <div class="form">
+                        
+                        <h3 class="fh3" id='text'>Sign-up As Student</h3>
+
+                            <form action="{{url_for('signup')}}" method="post">
+
+                                Name:  <input type="text" name="name"> <br>
+                                Last Name: <input type="text1" name="lastname"><br>
+                                Login:  <input type="login" name="login"> <br>
+                                Password: <input type="Password" name="password"><br>
+                                e-mail: <input type="e-mail" name="email"> <br>
+                                <div id='teacherId'>Teacher ID: <input type="number" name="teacherId"> </div>
+                                Teacher <input type="checkbox" id="position" name="position" onclick="myFunction()">
+                                <input type="submit" class="btn btn-full" value="Sign-up" >
+
+                            </form>
+                    </div> 
+                </div>               
+            </div>
+        </section>
+        {%endif%}
+
+        <section class="section-form">
+            <div class="row">
+                <h2>We're happy to hear you</h2>
+                <a name='contact'></a>
+            </div>
+            <div class="row">
+                <form method="post" action="#" class="contact-form">
+                    <div class="row">
+                        <div class="col span-1-of-3">
+                            <label for="name">Name</label>
+                        </div>
+                        <div class="col span-2-of-3">
+                            <input type="text2" name="name" id="name" placeholder="Your name" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col span-1-of-3">
+                            <label for="email">Email</label>
+                        </div>
+                        <div class="col span-2-of-3">
+                            <input type="email" name="email" id="email" placeholder="Your email" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col span-1-of-3">
+                            <label>Drop us a line</label>
+                        </div>
+                        <div class="col span-2-of-3">
+                            <textarea name="message" placeholder="Your message"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col span-1-of-3">
+                            <label>&nbsp;</label>
+                        </div>
+                        <div class="col span-2-of-3">
+                            <input type="submit" value="Send it!">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>       
+
+
+                <footer>
+                <div class="col span-1-of-2">
+                    <ul class="social-links">
+                        <li><a href="#"><i class="ion-social-facebook"></i></a></li>
+                        <li><a href="#"><i class="ion-social-twitter"></i></a></li>
+                        <li><a href="#"><i class="ion-social-googleplus"></i></a></li>
+                        <li><a href="#"><i class="ion-social-instagram"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <p>
+                    No copyrights here.
+                </p>
+            </div>
+        </footer> 
+     
+        
+        
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="//cdn.jsdelivr.net/respond/1.4.2/respond.min.js"></script>
+    <script src="//cdn.jsdelivr.net/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="//cdn.jsdelivr.net/selectivizr/1.0.3b/selectivizr.min.js"></script>
+    <script src="static/resources/borrowed/js/jquery.waypoints.min.js"></script>
+    <script src="static/resources/javascripts/script.js"></script>
+    <script>
+        function myFunction() {
+            let checkBox = document.getElementById("position");
+            let teacherId = document.getElementById("teacherId");
+            let text = document.getElementById('text');
+            if (checkBox.checked == true){
+
+                teacherId.style.display = "none";
+                text.innerHTML = text.innerHTML.replace(/Student/,'Teacher')
+
+            } else {
+
+                teacherId.style.display = "block";
+                text.innerHTML = text.innerHTML.replace(/Teacher/,'Student')
+            }
+            }
+    </script>
+    </body>
+</html>

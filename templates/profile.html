@@ -1,0 +1,135 @@
+{% if profile.login|length > 0 %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Profile {%if profile.admin == True%} Admin {%endif%}</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="static/resources/styles/profile.css">
+	<link rel="stylesheet" type="text/css" href="static/resources/borrowed/css/normalize.css">
+	<link rel="stylesheet" type="text/css" href="static/resources/borrowed/css/grid.css">
+	<link rel="stylesheet" type="text/css" href="static/resources/borrowed/css/ionicons.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Nunito:300,400,400i&display=swap" rel="stylesheet">
+</head>
+<body>
+	<header>
+		<nav>
+			<div class="row">
+				<ul class="main-nav">
+					<li><a href="{{url_for('index')}}">Main page</a></li>
+					<li><a href="{{url_for('test.start')}}">Test</a></li>
+					<div class="dropdown">
+						<li><a href="{{url_for('profile', id=current_user.id)}}" class="dropbtn"> Profile </a></li>
+						<div class="dropdown-content">
+							{%if current_user.id == profile.id%}
+							<a href="{{url_for('editPasswordView')}}">Change password</a>
+							<a href="#" onclick=" editteacherId()">Change Teacher Id</a>
+							{%endif%}
+							<a href="{{url_for('logout')}}">Logout</a>
+							
+						</div>
+					</div>
+				</div>
+				</ul>
+			
+			</div>
+		</nav>
+		</header>
+	<section class="user-info">
+			<h2 class="user-name">{{profile.surname}} {{profile.name}}</h2>  <!--Name && Last Name from DB-->
+		<div>
+			<div class="col span-1-of-4 box">
+				<img src="static/resources/images/2.png" alt="photo" class="uphoto">
+			</div>
+			<div class="col span-3-of-4 box">
+				<h5>
+					{%if profile.teacher == False%}
+					 <a href="{{url_for('profile', id = profile.teacherId)}}"></a> {%for user in allData%}  {%if user.id == profile.teacherId%}
+						Teacher: {{user.name}} {{user.surname}} {%endif%} {%endfor%}
+					</a>
+					 	
+					{%endif%}
+					{%if profile.teacher == True%} Id: {{profile.id}} 
+					{%endif%}
+				</h5> <!-- Teacher name from DB-->
+				<form action="{{url_for('editTeacherId')}}" method="POST">
+				<h5 ><div id='teacherID'>Teacher ID: {{profile.teacherId}}</div>
+					<input type="text" name='teacherId' id='teacherId'> <input type="submit" value="edit" id='teacherIdbutton'></form>
+				</h5>
+				<h5>e-mail: {{profile.email}}</h5> <!-- e-mail from DB-->
+				<h5>Position:{%if profile.teacher == True%}Teacher{%endif%} {%if profile.teacher == False%}Student {%if current_user.id == 1%}(Admin){%endif%}{%endif%}</h5> <!-- Student || Teacher from DB-->	
+				{%if profile.teacher == True%}
+				<h5>Students: {%for i in students%}
+					<a href="{{url_for('profile', id=i.id)}}">
+						{{i.name}}
+					</a>
+					{%endfor%}</h5>
+				{%endif%}
+			</div>
+		</div>	
+	</section>
+	<input type="submit1" value="">
+
+	
+	<section class="post">
+		<h2>Wall of Thoughts</h2>
+		<input id='button' type="submit" name="" value="Create new post" onclick="hideButton()"><br><br>
+		<form action="{{url_for('wallOfThoughts')}}" method="POST">
+			<p><textarea id="textArea" name="body" placeholder="Anything new? Write here"></textarea></p>
+			<input type="submit" id="submit" name="" value="Submit">
+		</form>
+		
+	</section>	
+
+	{%for i in posts|sort(attribute='pub_date', reverse=True)%}
+			<center>
+				<div class="card">
+					<div class="card-header">
+						<a href="{{url_for('deletePost', postID=i.id)}}"><i class="ion-android-close icon-small"></i></a>
+						<h4>{{profile.name}} {{profile.surname}}</h4>   <!-- User name from DB-->
+					</div>
+				<div class="card-body">
+					<p>{{i.body}}</p> <!--Message from textarea-->
+					</div>
+				</div>
+			</center>
+	{% endfor %}
+			
+		
+
+	<footer>       
+		<div class="col span-1-of-2">
+			<ul class="social-links">
+				<li><a href="#"><i class="ion-social-facebook"></i></a></li>
+				<li><a href="#"><i class="ion-social-twitter"></i></a></li>
+				<li><a href="#"><i class="ion-social-googleplus"></i></a></li>
+				<li><a href="#"><i class="ion-social-instagram"></i></a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="row">
+		<p>
+			No copyrights here.
+		</p>
+	</div>
+</footer>
+<script src="static/resources/javascripts/profile.js"></script>
+</body>
+</html>
+
+
+
+
+
+{%else%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Profile id does not exist</title>
+</head>
+<body>
+	<h1>Profile id does not exist</h1>
+</body>
+</html>
+{%endif%}

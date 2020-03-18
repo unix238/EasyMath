@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login</title>
+		<meta charset="UTF-8">
+	 	<link rel="stylesheet" type="text/css" href="static/resources/styles/login.css">
+        <link rel="stylesheet" type="text/css" href="static/resources/borrowed/css/normalize.css">
+        <link rel="stylesheet" type="text/css" href="static/resources/borrowed/css/grid.css">
+        <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,400i&display=swap" rel="stylesheet">
+</head>
+<body>
+	<header>
+		<nav>
+			<div class="row">
+			   
+				  <ul class="main-nav">
+					<li><a href="{{url_for('index')}}">Main page</a></li>
+					<li><a href="#">About us</a></li>
+				</ul>
+			
+			</div>
+		</nav>
+	</header>
+	<div class="form">
+		<h1>Login</h1>
+		<form action="{{url_for('login')}}" method="POST">
+			Login:  <input type="login" name="login"> <br>
+			Password: <input type="password" name="password"><br>
+			<input type="submit" value="Sign-in" class="btn btn-full">	
+		</form>
+	</div>
+</body>
+</html>

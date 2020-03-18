@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>asd</title>
+</head>
+<body>
+<h1>{{question.question}}</h1>
+    <form action="{{url_for('test.collectingAnswers')}}" method="POST">
+        <input type="text" name="answer" placeholder="Answer here">
+        Question ID<input type="text" name="questionID" value="{{question.id}}" >
+        <input type="submit" value="Submit"><br>
+        
+    </form>
+</body>
+</html>

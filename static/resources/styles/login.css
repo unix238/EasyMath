@@ -1,0 +1,169 @@
+/*----------------------------------------------------------*/
+/* BASIC SETUP */
+/*----------------------------------------------------------*/
+*
+{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html
+{
+	background-color: #fff;
+	color: #555;
+	font-family: 'Nunito', 'Arial', sans-serif;
+	font-size: 20px;
+	font-weight: 300;
+	text-rendering: optimizeLegibility;
+}
+
+body
+{
+    background-image: -webkit-linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(../images/backgrounds/bg.jpg);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(../images/backgrounds/bg.jpg);
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    background-attachment: fixed;
+}
+
+/*----------------------------------------------------------*/
+/* REUSABLE COMPONENTS */
+/*----------------------------------------------------------*/
+
+.row
+{
+	max-width: 1140px;
+	margin: 0 auto;
+}
+.box
+{
+	padding: 1%;
+}
+
+/*----------------------------------------------------------*/
+/* HEADINGS */
+/*----------------------------------------------------------*/
+
+h1,
+h2,
+h3
+{
+	font-weight: 280px;
+	text-transform: uppercase;
+}
+
+h1
+{
+	padding: 30px;
+	color: #ecf0f1;
+	font-size: 240%;
+	word-spacing: 4px;
+	letter-spacing: 1px;
+}
+
+h2
+{	
+	color: #ecf0f1;
+	margin-top: 20px;
+	font-size: 180%;
+	word-spacing: 2px;
+	margin-bottom: 20px;
+	letter-spacing: 1px;
+}
+
+h3
+{
+	font-size: 110%;
+	margin-bottom: 15px;
+}
+
+h5
+{
+	font-size: 70%;
+	margin-bottom: 35px;
+	text-align: left;
+}
+
+
+/* Main navi */
+.main-nav {
+    float: right;
+    list-style: none;
+    margin-top: 55px;
+}
+
+.main-nav li {
+    display: inline-block;
+    margin-left: 40px;
+}
+
+.main-nav li a:link,
+.main-nav li a:visited {
+    padding: 8px 0;
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 90%;
+    border-bottom: 2px solid transparent;
+    -webkit-transition: border-bottom 0.2s;
+    transition: border-bottom 0.2s;
+}
+
+.main-nav li a:hover,
+.main-nav li a:active {
+    border-bottom: 2px solid #7f8c8d;
+}
+
+
+
+/*----------------------------------------------------------*/
+/* BUTTONS*/
+/*----------------------------------------------------------*/
+
+.form
+{
+	float:center;
+	text-align: center;
+	font-weight: 200;
+	letter-spacing: 1px;
+	color: #ecf0f1;
+}
+
+
+input[type=Login],
+input[type=Password],
+input[type=submit]
+{
+	height: 30px;
+	border-radius: 10px;
+	border: 1px solid #95a5a6;
+	margin-bottom: 10px;
+	color: #000;
+}
+
+input[type=Login]
+{
+	margin-top: 80px;
+	margin-left: 55px;
+}
+
+input[type=Password]
+{
+	margin-left: 13px;
+
+}
+
+input[type=submit]
+{
+	margin-left: 30px;
+	margin-top: 40px;
+	display: inline-block;
+	padding: 10px 30px;
+	height: 40px;
+	border-radius: 10px;
+	background-color: #7f8c8d;
+	border: 1px solid #7f8c8d;
+	color: #fff ;
+}
