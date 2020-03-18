@@ -2,10 +2,6 @@ from app import app,db
 import models
 from flask import render_template, redirect, url_for, request, session
 from flask_login import UserMixin, LoginManager, login_user, current_user, login_required, logout_user
-import smtplib
-from email.mime.multipart import MIMEMultipart     
-from email.mime.text import MIMEText                
-from email.mime.image import MIMEImage
 
 
 
