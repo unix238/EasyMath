@@ -17,6 +17,7 @@
 				<ul class="main-nav">
 					<li><a href="{{url_for('index')}}">Main page</a></li>
 					<li><a href="{{url_for('test.start')}}">Test</a></li>
+					{%if current_user.admin == True%}<li><a href="{{url_for('contactUsView')}}">Contact Us View Messages</a></li>{%endif%}
 					<div class="dropdown">
 						<li><a href="{{url_for('profile', id=current_user.id)}}" class="dropbtn"> Profile </a></li>
 						<div class="dropdown-content">

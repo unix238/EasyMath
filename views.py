@@ -2,6 +2,10 @@ from app import app,db
 import models
 from flask import render_template, redirect, url_for, request, session
 from flask_login import UserMixin, LoginManager, login_user, current_user, login_required, logout_user
+import smtplib
+from email.mime.multipart import MIMEMultipart     
+from email.mime.text import MIMEText                
+from email.mime.image import MIMEImage
 
 
 
@@ -124,21 +128,19 @@ def deletePost(postID):
 	return redirect(url_for('profile', id=current_user.id))
 
 
-
-@app.route('/new-post')
-@login_required
-def newPost():
-	return redirect(url_for('addingPost', title='finished work !', body="Waiting for teacher result's", author=current_user.id))
-
-
-@app.route('/contact-form')
+@app.route('/contact-form', methods=['POST'])
 @login_required
 def contactForm():
 	name = request.form['name']
 	email =request.form['email']
 	text = request.form['message']
-	author = name + '/' + email
-	return redirect(url_for('addingPost', title='Contact', body=text, author=author))
+	author = '{0}-{1}'.format(name,email)
+
+	message = models.Posts(title='Contact', body=text, author=author)
+	db.session.add(message)
+	db.session.commit()
+
+	return redirect(url_for('profile', id=current_user.id))
 
 
 @app.route('/add-message-to-wall-of-thoughts', methods=['GET','POST'])
@@ -180,3 +182,10 @@ def editTeacherId():
 def editPasswordView():
 	
 	return render_template('password.html')
+
+@app.route('/contact-us-views')
+def contactUsView():
+	messages = models.Posts.query.filter_by(title='Contact')
+	return render_template('contact.html', messages = messages)
+
+
