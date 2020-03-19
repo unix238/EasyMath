@@ -14,7 +14,6 @@ from app import db
 
 #localhost:5000/profile/<profile> 
 @test.route('/')
-
 def index():
 	return redirect(url_for('test.start'))
 

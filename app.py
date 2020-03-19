@@ -24,9 +24,10 @@ from views import *
 from models import User
 
 from test import test
-
+from admin import admin
 
 app.register_blueprint(test, url_prefix='/test')
+app.register_blueprint(admin, url_prefix='/admin')
 
 @login_manager.user_loader
 def load_user(user_id):

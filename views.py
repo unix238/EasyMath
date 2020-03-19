@@ -195,4 +195,5 @@ def editPosts(postID):
 	db.session.commit()
 
 	return redirect(url_for('profile',id=current_user.id))
-	
+
+

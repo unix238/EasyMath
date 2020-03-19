@@ -1,0 +1,29 @@
+{%extends 'base.html'%}
+
+{%block title %} Contact Us Posts {%endblock%}
+
+
+
+{%block body%} 
+
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Text Body</th>
+        <th scope="col">Author</th>
+      </tr>
+    </thead>
+    <tbody>
+      {%for message in messages%}
+      <tr>
+        <th scope="row">{{message.id}}</th>
+        <td>{{message.body}}</td>
+        <td>{{message.author}}</td>
+      </tr>
+      {%endfor%}
+  
+    </tbody>
+  </table>
+
+{%endblock%}

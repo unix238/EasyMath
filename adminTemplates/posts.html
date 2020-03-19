@@ -1,0 +1,31 @@
+{%extends 'base.html'%}
+
+{%block title%} Posts {%endblock%}
+
+{%block body%}
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Profile ID</th>
+      <th scope="col">Title</th>
+      <th scope="col">Body</th>
+    </tr>
+  </thead>
+  <tbody>
+    {%for post in posts%}
+    {%if post.author| length < 5%}
+    <tr>
+      <th scope="row">{{post.id}}</th>
+      <td><a href="{{url_for('profile', id=post.author)}}">ID: {{post.author}}</a></td>
+      <td>{{post.title}}</td>
+      <td>{{post.body}}</td>
+    </tr>
+    {%endif%}
+    {%endfor%}
+
+  </tbody>
+</table>
+
+{%endblock%}

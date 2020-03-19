@@ -18,6 +18,7 @@
 					<li><a href="{{url_for('index')}}">Main page</a></li>
 					<li><a href="{{url_for('test.start')}}">Test</a></li>
 					{%if current_user.admin == True%}<li><a href="{{url_for('contactUsView')}}">Contact Us View Messages</a></li>{%endif%}
+					<li><a href="{{url_for('admin.index')}}">Admin Panel</a></li>
 					<div class="dropdown">
 						<li><a href="{{url_for('profile', id=current_user.id)}}" class="dropbtn"> Profile </a></li>
 						<div class="dropdown-content">
@@ -73,12 +74,13 @@
 	
 	<section class="post">
 		<h2>Wall of Thoughts</h2>
+		{%if current_user.id == profile.id%}
 		<input id='button' type="submit" name="" value="Create new post" onclick="hideButton()"><br><br>
 		<form action="{{url_for('wallOfThoughts')}}" method="POST">
 			<p><textarea id="textArea" name="body" placeholder="Anything new? Write here"></textarea></p>
 			<input type="submit" id="submit" name="" value="Submit">
 		</form>
-		
+		{%endif%}
 	</section>	
 
 	{%for i in posts|sort(attribute='pub_date', reverse=True)%}
