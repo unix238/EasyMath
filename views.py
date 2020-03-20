@@ -98,9 +98,14 @@ def profile(id):
 	posts = models.Posts.query.filter_by(author=id)
 	students = models.User.query.all()
 	answers = models.Answers.query.all()
-	
 
-	return render_template('profile.html', profile=profiles, allData=allData, posts=posts, students=students, answers=answers)
+	friends = models.Friends.query.all()
+
+
+	frinedRequests = models.addingFriend.query.filter_by(requestTo=current_user.id)
+
+
+	return render_template('profile.html', profile=profiles, allData=allData, posts=posts, students=students, answers=answers, frinedRequests=frinedRequests, friends=friends)
 
 
 
@@ -197,3 +202,45 @@ def editPosts(postID):
 	return redirect(url_for('profile',id=current_user.id))
 
 
+@app.route('/sending-request-to-add-friend-<id>', methods=['POST'])
+def sendingRequest(id):
+	
+	fromUser = models.addingFriend.query.filter_by(requestFrom=current_user.id)
+	toUser = models.addingFriend.query.filter_by(requestTo = id)
+
+	for fuser in fromUser:
+
+		for tuser in toUser:
+
+			if fuser and tuser:
+
+				if fuser.id == tuser.id:
+					
+					return redirect(url_for('profile', id = current_user.id))
+	
+	newRequest = models.addingFriend(requestFrom=current_user.id, requestTo=id)
+	db.session.add(newRequest)
+	db.session.commit()
+
+	return redirect(url_for('profile', id=id))
+
+
+@app.route('/adding-to-friend-<id>', methods=['POST', 'GET'])
+def addingFriend(id):
+
+	requestTo = models.addingFriend.query.filter_by(requestTo=current_user.id)
+	requestFrom = models.addingFriend.query.filter_by(requestFrom=id)
+	
+	for i in requestFrom:
+		for j in requestTo:
+			if j.id == i.id:
+
+				newFrriend = models.Friends(firstUserID=i.requestFrom, secondUserID=i.requestTo)
+				db.session.add(newFrriend)
+				db.session.commit()
+
+				db.session.delete(i)
+				db.session.commit()
+				break
+
+	return redirect(url_for('profile',id=current_user.id))

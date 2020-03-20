@@ -29,6 +29,20 @@
 							
 						</div>
 					</div>
+					{%if frinedRequests != None%}
+					<div class="dropdown">
+						<li><a href="{{url_for('profile', id=current_user.id)}}" class="dropbtn"> Friend Requests </a></li>
+						<div class="dropdown-content">
+							{%for i in frinedRequests%}
+								{%for user in students%}
+									{%if i.requestFrom == user.id%}
+										<h5>{{user.name}}</a> <a href="{{url_for('addingFriend', id=user.id)}}"><ion-icon name="checkmark-outline"></ion-icon></a><a><ion-icon name="close-outline"></ion-icon></a></h5>
+									{%endif%}
+								{%endfor%}
+							{%endfor%}
+						</div>
+					</div>
+					{%endif%}
 				</div>
 				</ul>
 			
@@ -69,8 +83,33 @@
 		</div>	
 	</section>
 	<input type="submit1" value="">
-
-	
+	{%if current_user.id != profile.id%}
+	<center>
+		<form action="{{url_for('sendingRequest', id=profile.id)}}" method="POST">
+			<input type="submit">
+		</form>
+	</center>
+	{%endif%}
+	<center>
+		{%for i in friends%}
+			{%for user in students%}
+				{%if i.firstUserID == profile.id or i.secondUserID == profile.id %}
+					{%if i.firstUserID == user.id and i.firstUserID != profile.id%}
+						{{user.name}}
+					{%endif%}
+				{%endif%}
+			{%endfor%}
+		{%endfor%}
+		{%for i in friends%}
+			{%for user in students%}
+				{%if i.secondUserID == profile.id or i.firstUserID == profile.id %}
+					{%if i.secondUserID == user.id and i.secondUserID != profile.id%}
+						<a href="{{url_for('profile', id=user.id)}}">	{{user.name}} </a>
+					{%endif%}
+				{%endif%}
+			{%endfor%}
+		{%endfor%}
+	</center>
 	<section class="post">
 		<h2>Wall of Thoughts</h2>
 		{%if current_user.id == profile.id%}
@@ -123,6 +162,7 @@
 	</div>
 </footer>
 <script src="static/resources/javascripts/profile.js"></script>
+<script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
 </body>
 </html>
 

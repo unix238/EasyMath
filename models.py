@@ -98,3 +98,35 @@ class Posts (db.Model):
 
     def __repr__(self):
         return '<postTitle %r> ' % self.title
+    
+
+
+
+class addingFriend(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    requestFrom = db.Column(db.Integer, nullable=False)
+    requestTo = db.Column(db.Integer, nullable = True)
+    friend = db.Column(db.Boolean, default=False, nullable=True)
+
+    def __init__(self, requestFrom,requestTo):
+        self.requestFrom = requestFrom
+        self.requestTo = requestTo
+    
+
+    def __repr__(self):
+        return '<requestFrom %r> ' % self.requestFrom
+
+
+class Friends(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    firstUserID = db.Column(db.Integer)
+    secondUserID = db.Column(db.Integer)
+    
+
+    def __init__(self, firstUserID,secondUserID):
+        self.firstUserID = firstUserID
+        self.secondUserID = secondUserID
+    
+
+    def __repr__(self):
+        return '<firstUserID %r> ' % self.firstUserID
