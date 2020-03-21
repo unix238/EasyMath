@@ -244,3 +244,14 @@ def addingFriend(id):
 				break
 
 	return redirect(url_for('profile',id=current_user.id))
+
+
+@app.route('/searching', methods=['GET', 'POST'])
+def finder():
+	search = request.form['search']
+
+	users = models.User.query.filter_by(name=search)
+	posts = models.Posts.query.filter_by(body=search)
+
+	return render_template('searchResults.html', users=users, posts=posts)
+	

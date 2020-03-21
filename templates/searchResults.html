@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+        <title>Searching Results</title>
+    </head>
+    <body>
+        <h1>Seacrhing Results:</h1>
+        <h2>Users:</h2>
+        {%for user in users%}
+            <a href="{{url_for('profile', id=user.id)}}">{{user.name}}</a>
+        {%endfor%}    
+         <h2>Posts:</h2>
+         
+            {%for post in posts | sort(attribute='pub_date', reverse=True)%}
+            <a href="{{url_for('profile', id=post.author)}}">{{post.body}}</a>
+            {%endfor%}
+    </body>
+</html>

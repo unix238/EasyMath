@@ -17,6 +17,7 @@
 				<ul class="main-nav">
 					<li><a href="{{url_for('index')}}">Main page</a></li>
 					<li><a href="{{url_for('test.start')}}">Test</a></li>
+					<li><form action="{{url_for('finder')}}" method="POST"><input type="search" name="search"> <input type="submit" value="find"></li></form>
 					{%if current_user.admin == True%}<li><a href="{{url_for('admin.index')}}">Admin Panel</a></li>{%endif%}
 					<div class="dropdown">
 						<li><a href="{{url_for('profile', id=current_user.id)}}" class="dropbtn"> Profile </a></li>
