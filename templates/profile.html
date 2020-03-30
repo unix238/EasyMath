@@ -25,6 +25,7 @@
 							{%if current_user.id == profile.id%}
 							<a href="{{url_for('editPasswordView')}}">Change password</a>
 							<a href="#" onclick=" editteacherId()">Change Teacher Id</a>
+							<a href="#" onclick=" editProgilePhoto()">Change Photo</a>
 							{%endif%}
 							<a href="{{url_for('logout')}}">Logout</a>
 							
@@ -54,7 +55,13 @@
 			<h2 class="user-name">{{profile.surname}} {{profile.name}}</h2>  <!--Name && Last Name from DB-->
 		<div>
 			<div class="col span-1-of-4 box">
-				<img src="static/resources/images/2.png" alt="photo" class="uphoto">
+				<form action="{{url_for('uploadPhoto')}}" method="POST" enctype="multipart/form-data">
+					
+						<img src="data:;base64,{{ image }}" class="uphoto">
+					
+					<input type="file" name="inputFile" id="photoForm">
+					<input type="submit" id="photoFormButton">
+				</form>
 			</div>
 			<div class="col span-3-of-4 box">
 				<h5>

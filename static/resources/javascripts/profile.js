@@ -17,3 +17,11 @@ function editteacherId() {
     button.style.display = 'inline'
     
 }
+
+function editProgilePhoto(){
+    let form = document.getElementById('photoForm')
+    let button = document.getElementById('photoFormButton')
+
+    form.style.display = 'inline'
+    button.style.display = 'inline'
+}

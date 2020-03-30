@@ -2,6 +2,7 @@ from app import app,db
 import models
 from flask import render_template, redirect, url_for, request, session
 from flask_login import UserMixin, LoginManager, login_user, current_user, login_required, logout_user
+import base64
 
 
 
@@ -33,12 +34,14 @@ def signup():
 	emailInDatabase = models.User.query.filter_by(email=email).first()
 
 	if not loginInDatabase and not emailInDatabase:
-
-		newUser = models.User(name=name, surname=surname, email=email, password=password, login=login, teacherId=teacherId, teacher=teacher, q1=False, q2=False, q3=False, q4=False, q5=False, q6=False, q7=False, q8=False, q9=False, q10=False)
-
+		data = open('2.png')
+		newUser = models.User(name=name, surname=surname, email=email, password=password, login=login, teacherId=teacherId, teacher=teacher,)
+		
 		db.session.add(newUser)
 		db.session.commit()
-
+		default = models.Images(userId=newUser.id, data=data)
+		db.session.add(default)
+		db.session.commit()
 		return redirect(url_for('login'))
 
 	return '''email or login alredy exist'''
@@ -100,11 +103,9 @@ def profile(id):
 	answers = models.Answers.query.all()
 
 	friends = models.Friends.query.all()
-
-
+	
 	frinedRequests = models.addingFriend.query.filter_by(requestTo=current_user.id)
-
-
+	
 	return render_template('profile.html', profile=profiles, allData=allData, posts=posts, students=students, answers=answers, frinedRequests=frinedRequests, friends=friends)
 
 
@@ -254,4 +255,14 @@ def finder():
 	posts = models.Posts.query.filter_by(body=search)
 
 	return render_template('searchResults.html', users=users, posts=posts)
-	
+
+
+
+@app.route('/uploadPhoto', methods=['POST'])
+def uploadPhoto():
+	file = request.files['inputFile']
+	newFile = models.Images(userId=current_user.id, data=file.read())
+	db.session.add(newFile)
+	db.session.commit()
+
+	return redirect(url_for('profile', id=current_user.id))

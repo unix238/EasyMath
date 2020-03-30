@@ -12,18 +12,8 @@ class User(UserMixin,db.Model):
     teacherId = db.Column(db.Integer, nullable=True)
     teacher = db.Column(db.Boolean, nullable=False)
     admin = db.Column(db.Boolean, nullable=True)
-    q1 = db.Column(db.Boolean, nullable=False)
-    q2 = db.Column(db.Boolean, nullable=False)
-    q3 = db.Column(db.Boolean, nullable=False)
-    q4 = db.Column(db.Boolean, nullable=False)
-    q5 = db.Column(db.Boolean, nullable=False)
-    q6 = db.Column(db.Boolean, nullable=False)
-    q7 = db.Column(db.Boolean, nullable=False)
-    q8 = db.Column(db.Boolean, nullable=False)
-    q9 = db.Column(db.Boolean, nullable=False)
-    q10 = db.Column(db.Boolean, nullable=False)
 
-    def __init__(self, name, surname, email, password, login, teacherId, teacher, q1, q2, q3, q4, q5, q6, q7, q8, q9, q10):
+    def __init__(self, name, surname, email, password, login, teacherId, teacher):
         self.name = name
         self.surname = surname
         self.email = email
@@ -31,17 +21,6 @@ class User(UserMixin,db.Model):
         self.login = login
         self.teacherId = teacherId
         self.teacher = teacher
-        self.q1 = q1
-        self.q2 = q2
-        self.q3 = q3
-        self.q4 = q4
-        self.q5 = q5
-        self.q6 = q6
-        self.q7 = q7
-        self.q8 = q8
-        self.q9 = q9
-        self.q10 = q10
-
     
 
         
@@ -130,3 +109,4 @@ class Friends(db.Model):
 
     def __repr__(self):
         return '<firstUserID %r> ' % self.firstUserID
+
