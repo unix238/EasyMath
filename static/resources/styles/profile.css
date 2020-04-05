@@ -7,45 +7,38 @@
 	padding: 0;
 	box-sizing: border-box;
 }
-/* Тут к ФОРМАМ */
-#photoForm{
-	display: none;
-}
-#photoFormButton{
-	display: none;
+
+#formemail {
+    display: none;
 }
 
-.editPost
-{
-	display: none;
+.post-photo {
+    width: 50px;
+    margin-left: 5px;
+    margin-top: 5px;
+    border-radius: 50%;
 }
 
-.editButton
-{
-	display: none;
-}
 
 html
 {
-	background-color: #4b4b4b;
-	color: #fff;
+	background-color: rgb(255, 252, 245);
+	color: #000;
 	font-family: 'Nunito', 'Arial', sans-serif;
 	font-size: 20px;
 	font-weight: 300;
-	text-rendering: optimizeLegibility;
+    text-rendering: optimizeLegibility;
+    height: 100%;
 }
 .box
 {
 	padding: 1%;
 }
-body
-{
-	background-size: cover;
-	height: 100vh;
-    background-position: center;
-    background-attachment: fixed;
-}
 
+.all{
+    height: 250vh;
+    background-color: rgb(255, 252, 245);
+}
 /*----------------------------------------------------------*/
 /* HEADINGS */
 /*----------------------------------------------------------*/
@@ -54,87 +47,122 @@ h1,
 h2,
 h3
 {
-	font-weight: 280px;
-	text-transform: uppercase;
+	font-weight: 600;
+    text-transform: uppercase;
+    font-family: 'Baloo Da 2', cursive;    
 }
 
 h1
 {
-	margin-top: 20px;
+	margin-top: 0px;
 	margin-bottom: 20px;
 	color: #fff;
 	font-size: 240%;
 	word-spacing: 4px;
-	letter-spacing: 1px;
-	text-align: center;
+    letter-spacing: 1px;
+    font-family: 'Baloo Da 2', cursive;
 }
 
 h2
-{	
-	margin-top: 20px;
+{
 	font-size: 180%;
 	word-spacing: 2px;
-	margin-bottom: 20px;
-	letter-spacing: 2px;
+    color: #2980b9;
+    margin-bottom: 10px;
+    margin-left: 350px;
 }
 
 h3
 {
-	font-size: 120%;
-	margin-bottom: 15px;
-	margin-top: 20px;
+    text-align: center;
+    font-size: 120%;
+    padding: 20px;
 }
 
 h5
 {
 	font-size: 70%;
 	margin-bottom: 35px;
-	text-align: left;
-	letter-spacing: 1px;
+	text-align: center;
+    letter-spacing: 1px;
+    font-family: 'Nunito' ;
 }
 
-a
-{
-	text-decoration: none;
-	color: #fff;
+a {
+    text-decoration: none;
 }
 
+a:hover {
+    text-decoration: underline;
+}
+
+p {
+    font-family: 'Karla', sans-serif;
+}
 /*----------------------------------------------------------*/
 /* HEADER*/
 /*----------------------------------------------------------*/
 
 
-.main-nav
-{
-	font-size: 120%;
-	letter-spacing: 1px;
-	background-size: cover;
-	float: center;
-	list-style: none;
-	margin-top: 35px;
+
+/* Main navi */
+.main-nav {
+    float: left;
+    list-style: none;
 }
 
-.main-nav li
-{
-	display: inline-block;
-	margin-left: 40px;
+.main-nav li {
+    display: inline-block;
+    margin-left: 20px;
 }
 
 .main-nav li a:link,
-.main-nav li a:visited
-{
-	padding: 8px 0;
-	color: #fff;
-	text-decoration: none;
-	font-size: 90%;
-	border-bottom: 2px solid transparent;
-	transition: border-bottom 0.2s;
+.main-nav li a:visited {
+    color: #000;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 90%;
+    border-bottom: 2px solid transparent #2D7D9A;
+    -webkit-transition: border-bottom 0.2s;
+    transition: border-bottom 0.2s;
 }
 
-.main-nav li a:hover,
-.main-nav li a:active
+.icon-nav
 {
-	border-bottom: 2px solid #7f8c8d;
+    height: 40px;
+    width: 40px;
+    display: inline-block;
+	color: rgb(100, 97, 90);
+    font-size: 150%;
+}
+
+.pen
+{
+    color: #fff;
+    background-color: rgb(128, 168, 204);
+    margin-right: 20px;
+    padding: 3px;
+    text-align: center;
+}
+
+.pen1
+{
+    border-right: 1px solid #767676;
+    display: inline-block;
+    margin: 0;
+    height: 40px;
+}
+
+
+
+header::after
+{
+	display: block;
+	height: 1px;
+	background-color: #bdc3c7;
+	content: " ";
+	width: auto; 
+	margin: 0 auto;
 }
 
 
@@ -142,241 +170,194 @@ a
 /* User info*/
 /*----------------------------------------------------------*/
 
-section:before
-{
-	display: block;
-	height: 2px;
-	background-color:#e67e22;
-	content: " ";
-	width: auto; 
-	margin: 0 auto;
-	margin-top: 30px;
-}
-
 .user-info
 {
-	margin-bottom: 100px;
+    background-color: rgb(128, 168, 204);
+    float: left;
+    color: #fff;
+    min-height: 100vh;
 }
 
-.user-name
+.user-info a
 {
-	text-align: center;
+    color: #fff;
 }
-
-/*----------------------------------------------------------*/
-/* DropDown */
-/*----------------------------------------------------------*/
-/* Dropdown Button */
-.dropbtn {
-	color: #fff;
-	padding: 16px;
-	border: none;
-  }
-  
-  /* The container <div> - needed to position the dropdown content */
-  .dropdown {
-	float: right;
-	margin-right: 100px;
-	color: #fff;
-	min-width: 160px;
-	text-decoration: none;
-  }
-  
-  /* Dropdown Content (Hidden by Default) */
-  .dropdown-content {
-	display: none;
-	position: absolute;
-	padding: 20px;
-	min-width: 160px;
-	z-index: 1;
-  }
-  
-  /* Links inside the dropdown */
-  .dropdown-content a {
-	color: #fff;
-	background-color: #4b4b4b;
-	padding: 10px 20px;
-	text-decoration: none;
-	display: inline-block;
-	font-size: 75%;
-  }
-  
-  /* Change color of dropdown links on hover */
-  .dropdown-content a:hover {background-color: #4b4b4b;
-	border-bottom: 2px solid #7f8c8d}
-  
-  /* Show the dropdown menu on hover */
-  .dropdown:hover .dropdown-content {display: block;}
-  
-  /* Change the background color of the dropdown button when the dropdown content is shown */
-  .dropdown:hover .dropbtn {background-color: #4b4b4b;}
-
-
-
-
-
-/*----------------------------------------------------------*/
-/* BUTTONS*/
-/*----------------------------------------------------------*/
-
-
-input[type=submit1]
+.uphoto-div
 {
-	margin-top: 20px;
-	display: inline-block;
-	padding: 1px 1px;
-	font-weight: 300%;
-	text-decoration: none;
-	border-radius: 10px;
-	transition: background-color 0.2s, border 0.2s, color 0.2s;
-	background-color: #4b4b4b;
-	border: 1px solid #4b4b4b;
-	color: #4b4b4b ;
-	margin-right: 15px;
+    display: flex;
+    justify-content: center;
 }
 
-
-#button
-{
-	display: inline-block;
-	padding: 1px 1px;
-	font-weight: 300%;
-	text-decoration: none;
-	border-radius: 10px;
-	transition: background-color 0.2s, border 0.2s, color 0.2s;
-	background-color: #e67e22;
-	border: 1px solid #e67e22;
-	color: #fff ;
-	margin-right: 15px;
-	height: 40px;
-	width: 200px;
+.uphoto-div img {
+    width: 150px;
 }
-
-
-textarea{
-    width: 25%;
-    padding: 7px;
-    border-radius: 3px;
-	border: 1px solid #bdc3c7;
-	height: 70px;
-	color:#000;
-	color-adjust: #000;
-	display: none;
-}
-
-
-#submit
-{
-	display: none;
-	margin: 20px 0;
-	padding: 1px 1px;
-	font-weight: 300%;
-	text-decoration: none;
-	border-radius: 10px;
-	transition: background-color 0.2s, border 0.2s, color 0.2s;
-	background-color: #e67e22;
-	border: 1px solid #e67e22;
-	color: #fff ;
-	margin-right: 15px;
-	height: 40px;
-	width: 200px;
-}
-
-
-p{
-	color:#333;
-}
-
-#teacherIdbutton
-{
-	width: 50px;
-}
-
-#teacherId,
-#teacherIdbutton
-{
-	display: none;
-	color: #696969;
-	margin-top: 10px;
-}
-
-/*----------------------------------------------------------*/
-/* Photo*/
-/*----------------------------------------------------------*/
-
 .uphoto
 {
-	height: 130px;
+    opacity: 1;
+    margin: 20px 0px;
+	height: 125px;
 	width: auto;
-	margin-left: 80px;
-	margin-bottom: 20px;
+    margin-bottom: 30px;
+    border-radius: 50%;
+    transform: scale(1.08);
+    transition: transform 0.5s, opacity 0.5s;
+    background-color: #000;
 }
 
+.uphoto:hover
+{
+    opacity: 0.7;
+    transform: scale(1.03);
+    background-color: #000;
+}
+
+input[type=submit]
+{
+    background-color: rgb(108, 148, 183);
+    color: #fff;
+    border: 0;
+    border-radius: 20px;
+    height: 40px;
+    width: 150px;
+}
 
 /*----------------------------------------------------------*/
-/*Post*/
+/* POST*/
 /*----------------------------------------------------------*/
- .post
+.post
 {
-	text-align: center;
-} 
-
-
-.card
-{
-	background-color: #808080;
-	width: 25%;
-    padding: 15px;
-    border-radius: 10px;
-	border: 2px solid #696969;
-	margin-bottom: 20px;
-}
-
-.card-header
-{
-	font-size: 120%;
-	padding: 0;
-	margin-bottom: 0;
-}
-
-
-.card-header::after
-{
-	display: block;
-	height: 2px;
-	background-color:#e67e22;
-	content: " ";
-	width: 150px; 
-	margin: 0 auto;
-	margin: 10px 0 20px 0;
-}
-
-.card-body
-{
-	font-size: 80%;
-}
-
-
-.icon-small
-{
-	float: right;
-	padding: 0;
     display: block;
-	color: #FF4500;
-	margin-top: -12px;
-	margin-right: -4px;
+    padding: 40px;
+    height: 100%;
+    float:left;
+    background-color: rgb(243, 238, 232);
+}
+
+.textbox
+{
+    background-color: rgb(255, 252, 245);
+    height: 80px;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.title
+{
+    color: #bcb9be;
+}
+
+.number
+{
+    color: #000;
+}
+
+.note
+{
+    background-color: rgb(255, 252, 245);
+    max-height: 600px;
+    margin-top: 50px;
+    padding-bottom: 50px;
+
+}
+
+.topic
+{
+    display: inline-block;
+    height: 50px;
+    width: 150px;
+    text-align: left;
+    color:#000;
+}
+
+.topic h5
+{
+    margin-bottom: 0px;
+}
+
+.header {
+    border-bottom: 1px solid #bdc3c7;
+}
+
+.functions
+{
+    display: flex;
+    justify-content: right;
+    float: right;
+    color: #ff0000;
+    height: 20px;
+    width: 20px;
+    margin-right: 30px;
+    margin-top: 10px;
+}
+
+.functions a {
+    color: rgb(255, 0, 0);
+}
+
+.edit {
+    margin-right: 10px;
+    text-decoration: none;
+    color: #f00;
+    transform: scale(1);
+    transition: transform 0.5s;
+}
+
+.edit:hover {
+    transform: scale(1.4);
+}
+
+.close
+{
+    transform: scale(1);
+    transition: transform 0.5s;
+}
+
+.close:hover {
+    transform: scale(1.4);
+}
+
+.content p
+{
+    font-size: 80%;
 }
 
 
+.subtitle
+{
+    display: flex;
+    justify-content: center;
+    font-size: 110%;
+}
+
+
+
+/*----------------------------------------------------------*/
+/* TEST*/
+/*----------------------------------------------------------*/
+.test
+{
+    display: block;
+    height: 100vh;
+    float:left;
+    background-color: rgb(255, 255, 255);
+}
+
+.list li
+{
+    margin-left: 30px;
+    font-size: 110%;
+    text-decoration: none;
+    text-transform: uppercase;
+}
 /* ----------------------------------------------- */
 /* FOOTER */
 /* ----------------------------------------------- */
 
 footer {
-	margin-top: 50px;
     background-color: #333;
     padding: 50px;
     font-size: 80%;
+    color:#fff;
 }
 
 .footer-nav {
@@ -450,4 +431,84 @@ footer p {
     color: #888;
     text-align: center;
     margin-top: 20px;
+}
+
+/*----------------------------------------------------------*/
+/* DropDown */
+/*----------------------------------------------------------*/
+
+/* The container <div> - needed to position the dropdown content */
+  .dropdown {
+	padding: 8px 0;
+	color: #fff;
+	text-decoration: none;
+    font-size: 90%;
+    display:inline-block;
+    margin-left: 500px; 
+}
+
+
+/* Dropdown Button */
+.dropbtn {
+	color: #fff;
+	padding: 16px;
+    font-size: 130%;
+    border: none;
+  }
+  .dropbtn:hover {
+    border-bottom: 2px solid #00aced;
+}
+
+   
+  /* Dropdown Content (Hidden by Default) */
+  .dropdown-content {
+    display: none;
+    color: #000;
+	position: absolute;
+	padding: 20px;
+	min-width: 160px;
+    z-index: 1;
+  }
+  
+  /* Links inside the dropdown */
+  .dropdown-content a {
+	color: #000;
+	padding: 10px 20px;
+	text-decoration: none;
+    display: inline-block;
+    font-size: 80%;
+  }
+  
+  /* Change color of dropdown links on hover */
+  .dropdown-content a:hover {
+      color: #000;
+      border-bottom: 2px solid #00aced;
+  }
+  
+  /* Show the dropdown menu on hover */
+  .dropdown:hover .dropdown-content {display: block;}
+
+
+
+.new-post {
+    display: none;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.col-3-title {
+    text-align: left;
+    display: flex;
+    justify-content: left;
+}
+
+.post-body {
+    margin-left: 22px;
+}
+
+.photo {
+    display: none;
 }

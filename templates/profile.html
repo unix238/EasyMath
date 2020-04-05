@@ -1,193 +1,216 @@
-{% if profile.login|length > 0 %}
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Profile {%if profile.admin == True%} Admin {%endif%}</title>
-	<meta charset="UTF-8">
+	<title>Profile</title>
 	<link rel="stylesheet" type="text/css" href="static/resources/styles/profile.css">
 	<link rel="stylesheet" type="text/css" href="static/resources/borrowed/css/normalize.css">
-	<link rel="stylesheet" type="text/css" href="static/resources/borrowed/css/grid.css">
-	<link rel="stylesheet" type="text/css" href="static/resources/borrowed/css/ionicons.min.css">
-	<link href="https://fonts.googleapis.com/css?family=Nunito:300,400,400i&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="static/resources/borrowed/css/grid.css">
+    <link rel="stylesheet" type="text/css" href="static/resources/borrowed/css/ionicons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Karla&family=Raleway&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,400i&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="static/resources/images/logo.png" type="image/png">
 </head>
-<body>
-	<header>
+<body>            {#<img src="static/resources/images/profilesImages/avatar1.png" alt="" class="uphoto">#}
+    <header>
 		<nav>
 			<div class="row">
 				<ul class="main-nav">
-					<li><a href="{{url_for('index')}}">Main page</a></li>
-					<li><a href="{{url_for('test.start')}}">Test</a></li>
-					<li><form action="{{url_for('finder')}}" method="POST"><input type="search" name="search"> <input type="submit" value="find"></li></form>
-					{%if current_user.admin == True%}<li><a href="{{url_for('admin.index')}}">Admin Panel</a></li>{%endif%}
-					<div class="dropdown">
-						<li><a href="{{url_for('profile', id=current_user.id)}}" class="dropbtn"> Profile </a></li>
-						<div class="dropdown-content">
-							{%if current_user.id == profile.id%}
-							<a href="{{url_for('editPasswordView')}}">Change password</a>
-							<a href="#" onclick=" editteacherId()">Change Teacher Id</a>
-							<a href="#" onclick=" editProgilePhoto()">Change Photo</a>
-							{%endif%}
-							<a href="{{url_for('logout')}}">Logout</a>
-							
-						</div>
-					</div>
-					{%if frinedRequests != None%}
-					<div class="dropdown">
-						<li><a href="{{url_for('profile', id=current_user.id)}}" class="dropbtn"> Friend Requests </a></li>
-						<div class="dropdown-content">
-							{%for i in frinedRequests%}
-								{%for user in students%}
-									{%if i.requestFrom == user.id%}
-										<h5>{{user.name}}</a> <a href="{{url_for('addingFriend', id=user.id)}}"><ion-icon name="checkmark-outline"></ion-icon></a><a><ion-icon name="close-outline"></ion-icon></a></h5>
-									{%endif%}
-								{%endfor%}
-							{%endfor%}
-						</div>
-					</div>
-					{%endif%}
-				</div>
+                    <div class="pen1">
+                        <li onclick="newPost('new-post')"><a href="#"><i class="ion-android-create icon-nav pen"></i></a></li>
+                    </div>
+                    <li><a href="{{url_for('index')}}"><i class="ion-ios-home icon-nav"></i></a></li>
+                    <li><a href="/#contact"><i class="ion-ios-email icon-nav"></i></a></li>
+                    <li><a href="{{url_for('test.index')}}"><i class="ion-ios-list icon-nav"></i></a></li>
+                   <li><h2>Easymath</h2></li>
+                   <div class="dropdown">
+                    <li><a href="{{url_for('profile', id=current_user.id)}}" class="dropbtn">Profile</a></li>
+                    <div class="dropdown-content">
+                        <a href="{{url_for('editPasswordView')}}">Change<br>Password</a>
+                        <a href="{{url_for('logout')}}">Logout</a>
+                    </div>
+                </div>
 				</ul>
-			
 			</div>
-		</nav>
-		</header>
-	<section class="user-info">
-			<h2 class="user-name">{{profile.surname}} {{profile.name}}</h2>  <!--Name && Last Name from DB-->
+        </nav>
+    </header>
+    <div class="all">
+    <section class="user-info span-1-of-4">
+        
+            <h3>{{profile.name}} {{profile.surname}}</h3>  <!--Name && Last Name from DB-->
+            <div class="uphoto-div">
+                    {%if file_data%}
+                    <img src="data:;base64,{{file_data | b64decode  }}" alt="profile">
+                    {%else%}
+                    <img src="static/resources/images/profilesImages/avatar1.png" alt="">
+                    {%endif%}
+                    <!---->
+                    <div id="photo" class="photo">
+                        <form  action="{{url_for('editingPhoto')}}" method="POST" enctype="multipart/form-data">
+                                <input type="file" name="inputFile"><br>
+                            <input type="submit" value="Submit">
+                        </form>
+                    </div>
+                    
+                
+            </div>
 		<div>
-			<div class="col span-1-of-4 box">
-				<form action="{{url_for('uploadPhoto')}}" method="POST" enctype="multipart/form-data">
-					
-						<img src="data:;base64,{{ image }}" class="uphoto">
-					
-					<input type="file" name="inputFile" id="photoForm">
-					<input type="submit" id="photoFormButton">
-				</form>
-			</div>
-			<div class="col span-3-of-4 box">
-				<h5>
-					{%if profile.teacher == False%}
-					 <a href="{{url_for('profile', id = profile.teacherId)}}"></a> {%for user in allData%}  {%if user.id == profile.teacherId%}
-						Teacher: {{user.name}} {{user.surname}} {%endif%} {%endfor%}
-					</a>
+			<h5>
+                {%if profile.teacher == False%}
+                        </a>
+                            {%for user in allData%}  {%if user.id == profile.teacherId%} 
+                            <a href="{{url_for('profile', id = profile.teacherId)}}">Teacher: {{user.name}} {{user.surname}} </a>
+                            <div id="teacherID" style="display: none; color: #000;">
+                                <form action="{{url_for('editTeacherId')}}" method="post">
+                                    <input type="number" name='teacherId' value="{{user.id}}">
+                                    <input type="submit" id="submitTI" value=Edit>
+                                </form>
+                            </div> 
+                            {%endif%} {%endfor%}
 					 	
 					{%endif%}
-					{%if profile.teacher == True%} Id: {{profile.id}} 
+					{%if profile.teacher == True%} Id: {{profile.id}}
 					{%endif%}
-				</h5> <!-- Teacher name from DB-->
-				<form action="{{url_for('editTeacherId')}}" method="POST">
-				<h5 ><div id='teacherID'>Teacher ID: {{profile.teacherId}}</div>
-					<input type="text" name='teacherId' id='teacherId'> <input type="submit" value="edit" id='teacherIdbutton'></form>
-				</h5>
-				<h5>e-mail: {{profile.email}}</h5> <!-- e-mail from DB-->
-				<h5>Position:{%if profile.teacher == True%}Teacher{%endif%} {%if profile.teacher == False%}Student {%if current_user.id == 1%}(Admin){%endif%}{%endif%}</h5> <!-- Student || Teacher from DB-->	
-				{%if profile.teacher == True%}
-				<h5>Students: {%for i in students%}
-					<a href="{{url_for('profile', id=i.id)}}">
-						{{i.name}}
-					</a>
+            </h5> <!-- Teacher name from DB-->
+			<h5>
+                Email: {{profile.email}}
+                    <form id="formemail" action="{{url_for('editEmail')}}" method="POST">
+                        <input type="email" name="email" id="email" style="color:#000;" value="{{current_user.email}}">
+                        <input type="submit" value="submit">
+                    </form>
+            
+            </h5> <!-- e-mail from DB-->
+			<h5>
+                Position:{%if profile.teacher == True%}Teacher{%endif%} {%if profile.teacher == False%}Student {%if profile.id == 1%}(Admin){%endif%}{%endif%}
+            </h5> <!-- Student || Teacher from DB-->
+            {%if profile.teacher == True%}
+				<h5>Students: 
+                    {%for i in students%}
+                        <a href="{{url_for('profile', id=i.id)}}">
+                            {{i.name}}
+                        </a>
 					{%endfor%}</h5>
-				{%endif%}
-			</div>
-		</div>	
-	</section>
-	<input type="submit1" value="">
-	{%if current_user.id != profile.id%}
-	<center>
-		<form action="{{url_for('sendingRequest', id=profile.id)}}" method="POST">
-			<input type="submit">
-		</form>
-	</center>
-	{%endif%}
-	<center>
-		{%for i in friends%}
-			{%for user in students%}
-				{%if i.firstUserID == profile.id or i.secondUserID == profile.id %}
-					{%if i.firstUserID == user.id and i.firstUserID != profile.id%}
-						{{user.name}}
-					{%endif%}
-				{%endif%}
-			{%endfor%}
-		{%endfor%}
-		{%for i in friends%}
-			{%for user in students%}
-				{%if i.secondUserID == profile.id or i.firstUserID == profile.id %}
-					{%if i.secondUserID == user.id and i.secondUserID != profile.id%}
-						<a href="{{url_for('profile', id=user.id)}}">	{{user.name}} </a>
-					{%endif%}
-				{%endif%}
-			{%endfor%}
-		{%endfor%}
-	</center>
-	<section class="post">
-		<h2>Wall of Thoughts</h2>
-		{%if current_user.id == profile.id%}
-		<input id='button' type="submit" name="" value="Create new post" onclick="hideButton()"><br><br>
-		<form action="{{url_for('wallOfThoughts')}}" method="POST">
-			<p><textarea id="textArea" name="body" placeholder="Anything new? Write here"></textarea></p>
-			<input type="submit" id="submit" name="" value="Submit">
-		</form>
-		{%endif%}
-	</section>	
+			{%endif%}	
+        </div>	
+        {%if current_user.id == profile.id%}
+        <div class="uphoto-div">
+            <input type="submit" onclick="changeTI()" id='bnbb'value="   Edit   "> <!-- Button for editing -->
+        </div>
+        {%endif%}
+    </section>
 
-	{%for i in posts|sort(attribute='pub_date', reverse=True)%}
-			<center>
-				<div class="card">
-					<div class="card-header">
-						<a href="{{url_for('deletePost', postID=i.id)}}"><i class="ion-android-close icon-small"></i></a>
-						<a onclick="editBodyPost()"><i class="ion-edit icon-small"></i></a>
-						<h4>{{profile.name}} {{profile.surname}}</h4>   <!-- User name from DB-->
-					</div>
-				<div class="card-body">
-					<p><form action="{{url_for('editPosts', postID=i.id)}}" method="POST">
-						<p>
-							<input type="text" class='editPost' name="body" value="{{i.body}}">
-							<input type="submit" value="edit" class='editButton'>
-						</p>
-						<div class='postTexts'>{{i.body}}</div>
-					</form>
-				</p> <!--Message from textarea-->
-					</div>
-				</div>
-			</center>
-	{% endfor %}
-			
-		
 
-	<footer>       
-		<div class="col span-1-of-2">
-			<ul class="social-links">
-				<li><a href="#"><i class="ion-social-facebook"></i></a></li>
-				<li><a href="#"><i class="ion-social-twitter"></i></a></li>
-				<li><a href="#"><i class="ion-social-googleplus"></i></a></li>
-				<li><a href="#"><i class="ion-social-instagram"></i></a></li>
-			</ul>
-		</div>
-	</div>
-	<div class="row">
-		<p>
-			No copyrights here.
-		</p>
-	</div>
-</footer>
-<script src="static/resources/javascripts/profile.js"></script>
-<script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
+    <section class="post span-2-of-4">
+            <div class="textbox">
+                <div class="title">
+                    <div class="col span-1-of-3">Posts</div>
+                    <div class="col span-1-of-3">Friends</div>
+                    <div class="col span-1-of-3">Tests Done</div>
+                </div>
+                <div class="number">
+                    {% for i in posts %}
+                        {%if loop.last == True%}
+                            <div class="col span-1-of-3"><b>{{loop.index}}</b></div>
+                        {%endif%}
+                    {%endfor%}
+                    <div class="col span-1-of-3"><b>0</b></div>
+                    <div class="col span-1-of-3"><b>0</b></div>
+                </div>
+            </div>
+            <!-- ===================================================
+                New Post Form 
+            ======================================================== -->
+            <div class="new-post" id='new-post'>
+                <form action="{{url_for('wallOfThoughts')}}" method="POST">
+                    <p><textarea  name="title" placeholder="Title there"></textarea></p>
+                    <p><textarea  name="body" placeholder="Anything new? Write here"></textarea></p>
+                    <input type="submit" id="submit" name="" value="Submit">
+                </form>
+            </div>
+            {%for post in posts|sort(attribute='pub_date', reverse=True)%}
+            <div class="note">
+                <div class="header">
+                    <div class="topic">
+                        {%if file_data%}
+                    <img src="data:;base64,{{file_data | b64decode  }}"  class="post-photo" alt="profile">
+                    {%else%}
+                    <img src="static/resources/images/profilesImages/avatar1.png" class="post-photo" alt="">
+                    {%endif%}
+                        <p>{{post.pub_date | date}}</p> <!--user photo from DB-->
+                        <h5>{{profile.name}} {{profile.surname}}</h5>  <!--user name from DB-->
+                    </div>
+                    <div class="functions">
+                        {%if current_user.id == profile.id%}
+                            <div class="edit">
+                                <a><i class="ion-ios-color-wand-outline"></i></a>
+                            </div>
+                            <div class="close">
+                                <a href='{{url_for('deletePost', postID=post.id)}}'><i class="ion-ios-close-outline"></i></a>
+                            </div>
+                        {%endif%}
+                    </div>
+                </div>
+                    <div class="content">
+                        <div class="subtitle">
+                            <h5>{{post.title}}</h5> <!--Subtitle from completed form-->
+                        </div>
+                        <div class="post-body"><p>{{post.body}}</p></div>   <!--message from user-->
+                    </div>
+            </div>
+            {% endfor %}
+    </section>
+    <section class="test span-1-of-4">
+        <div class="col-3-title">
+            <h3>Tests list</h3>
+        </div>
+        <div class="list">
+            <ul>
+                <br>
+                <li><a href="">1</a></li>
+                <li><a href="">2</a></li>
+                <li><a href="">3</a></li>
+                <li><a href="">4</a></li>
+                <li><a href="">5</a></li>
+            </ul>
+        </div>
+
+    </section>
+    </div>
+    <footer>
+        <div class="row">
+            <div class="col span-1-of-2">
+                <ul class="social-links">
+                    <li><a href="#"><i class="ion-social-facebook"></i></a></li>
+                    <li><a href="#"><i class="ion-social-twitter"></i></a></li>
+                    <li><a href="#"><i class="ion-social-googleplus"></i></a></li>
+                    <li><a href="#"><i class="ion-social-instagram"></i></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <p> No copyrights here.</p>
+        </div>
+    </footer>
+
+    <script>
+    function newPost(id) {
+        let form = document.getElementById(id);
+            form.style.display = 'inline-block';
+    }
+    function changeTI(){
+        let f = document.getElementById('formemail');
+        let b = document.getElementById('bnbb');
+        b.style.display = 'none';
+        let s = document.getElementById('submitTI');
+        let z = document.getElementById('teacherID');
+        let x = document.getElementById('photo');
+
+        x.style.display = 'block';
+        f.style.display = 'inline-block';
+        s.style.display = 'inline-block';
+        z.style.display = 'inline-block';
+        
+    }
+    </script>
 </body>
 </html>
-
-
-
-
-
-{%else%}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Profile id does not exist</title>
-</head>
-<body>
-	<h1>Profile id does not exist</h1>
-</body>
-</html>
-{%endif%}

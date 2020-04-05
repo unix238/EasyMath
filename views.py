@@ -1,6 +1,6 @@
 from app import app,db
 import models
-from flask import render_template, redirect, url_for, request, session
+from flask import render_template, redirect, url_for, request, session, flash
 from flask_login import UserMixin, LoginManager, login_user, current_user, login_required, logout_user
 import base64
 
@@ -34,14 +34,11 @@ def signup():
 	emailInDatabase = models.User.query.filter_by(email=email).first()
 
 	if not loginInDatabase and not emailInDatabase:
-		data = open('2.png')
-		newUser = models.User(name=name, surname=surname, email=email, password=password, login=login, teacherId=teacherId, teacher=teacher,)
-		
+		newUser = models.User(name=name, surname=surname, email=email, password=password, login=login, teacherId=teacherId, teacher=teacher)
+
 		db.session.add(newUser)
 		db.session.commit()
-		default = models.Images(userId=newUser.id, data=data)
-		db.session.add(default)
-		db.session.commit()
+
 		return redirect(url_for('login'))
 
 	return '''email or login alredy exist'''
@@ -64,19 +61,23 @@ def login():
 		#search login in database (User) 
 
 		userLoginInDatabase = models.User.query.filter_by(login=login).first()
+		if userLoginInDatabase:
+			if userLoginInDatabase.password == password:
 
-		if userLoginInDatabase.password == password:
+				login_user(userLoginInDatabase)
 
-			login_user(userLoginInDatabase)
-
-			return redirect(url_for('profile', id=current_user.id))
-		else:
-
-			return '''encorrect password'''
+				return redirect(url_for('profile', id=current_user.id))
+			else:
+				flash('Incorrect Password')
+				return redirect(url_for('login'))
+		else:	
+			flash('Incorrect login')
+			return render_template('login.html')
+				
 	else:
-		#Showing login page
+			#Showing login pag
+			return render_template('login.html')
 
-		return render_template('login.html')
 
 
 @app.route('/logout')
@@ -100,13 +101,18 @@ def profile(id):
 	#if requested profile id = curent user id, user can edit own page
 	posts = models.Posts.query.filter_by(author=id)
 	students = models.User.query.all()
-	answers = models.Answers.query.all()
+	
 
 	friends = models.Friends.query.all()
 	
 	frinedRequests = models.addingFriend.query.filter_by(requestTo=current_user.id)
+
+	file_data = models.Image.query.filter_by(userID=id).first()
 	
-	return render_template('profile.html', profile=profiles, allData=allData, posts=posts, students=students, answers=answers, frinedRequests=frinedRequests, friends=friends)
+	return render_template('profile.html', profile=profiles, allData=allData,
+	posts=posts, students=students, 
+	frinedRequests=frinedRequests, friends=friends, 
+	data=list, file_data=file_data)
 
 
 
@@ -149,8 +155,9 @@ def contactForm():
 @login_required
 def wallOfThoughts():
 	body = request.form['body']
+	title = request.form['title']
 
-	return redirect(url_for('addingPost', title='New Post', body=body, author=current_user.id))
+	return redirect(url_for('addingPost', title=title, body=body, author=current_user.id))
 
 
 @app.route('/edit-password', methods=['POST'])
@@ -258,11 +265,27 @@ def finder():
 
 
 
-@app.route('/uploadPhoto', methods=['POST'])
-def uploadPhoto():
-	file = request.files['inputFile']
-	newFile = models.Images(userId=current_user.id, data=file.read())
-	db.session.add(newFile)
-	db.session.commit()
+@app.route('/editing-email-address-user', methods=['POST'])
+def editEmail():
+	email = request.form['email']
+	x = models.User.query.get(current_user.id)
+	x.email = email
 
+	db.session.commit()
 	return redirect(url_for('profile', id=current_user.id))
+
+
+@app.route('/editting-profile-photo', methods=['POST'])
+def editingPhoto():
+	file = request.files['inputFile']
+	a = models.Image.query.filter_by(userID=current_user.id).first()
+	if a:
+		a.data = file.read()
+		db.session.commit()
+	else:
+		new = models.Image(userID=current_user.id, data=file.read())
+		db.session.add(new)
+		db.session.commit()
+	return redirect(url_for('profile', id=current_user.id))
+
+

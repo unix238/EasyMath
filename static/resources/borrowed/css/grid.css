@@ -108,11 +108,13 @@
 }
 
 .span-2-of-4 {
-	width: 49.2%; 
+	width: 56%; 
+	height:100%;
 }
 
 .span-1-of-4 {
-	width: 23.8%; 
+	width: 22%; 
+	height:100%;
 }
 
 

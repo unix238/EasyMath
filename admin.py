@@ -6,7 +6,7 @@ from datetime import datetime, date
 
 admin = Blueprint('admin',__name__,template_folder='adminTemplates')
 
-from models import User, Question, Answers, Posts
+from models import User, Posts
 from app import db
 
 @admin.route('/')

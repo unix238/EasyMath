@@ -2,6 +2,7 @@ from app import db
 from flask_login import UserMixin
 from datetime import datetime
 
+
 class User(UserMixin,db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), nullable=False)
@@ -29,35 +30,6 @@ class User(UserMixin,db.Model):
         return '<User %r>' % self.name
 
 
-class Question(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    question = db.Column(db.String(150))
-    author = db.Column(db.String(100), nullable=True)
-
-    def __init__(self, question, author):
-        self.question = question
-        self.author = author
-        
-    
-    def __repr__(self):
-        return '<questions %r>' % self.question
-
-
-class Answers(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    answer = db.Column(db.String(150))
-    studentId = db.Column(db.String(100), nullable=False)
-    questionId = db.Column(db.Integer)
-
-    def __init__(self, answer, studentId, questionId):
-        self.answer = answer
-        self.studentId = studentId
-        self.questionId = questionId
-    
-    def __repr__(self):
-        return '<answer %r>' % self.answer
-
-
 
 class Posts (db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -77,7 +49,6 @@ class Posts (db.Model):
 
     def __repr__(self):
         return '<postTitle %r> ' % self.title
-    
 
 
 
@@ -96,6 +67,7 @@ class addingFriend(db.Model):
         return '<requestFrom %r> ' % self.requestFrom
 
 
+
 class Friends(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     firstUserID = db.Column(db.Integer)
@@ -110,3 +82,39 @@ class Friends(db.Model):
     def __repr__(self):
         return '<firstUserID %r> ' % self.firstUserID
 
+
+
+class Image(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    userID = db.Column(db.Integer)
+    data = db.Column(db.BLOB)
+
+
+
+class Question(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    body = db.Column(db.String)
+    cheked = db.Column(db.Boolean)
+
+    def __init__(self, body,cheked):
+        self.body = body
+        self.cheked = cheked
+
+    def __repr__(self):
+        return f"Question: {self.body}"
+
+
+
+class Answer(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    answer = db.Column(db.String(70))
+    correct = db.Column(db.Boolean)
+    questionID = db.Column(db.Integer)
+
+    def __init__(self, answer, correct, questionID):
+        self.answer = answer
+        self.correct = correct
+        self.questionID = questionID
+
+    def __repr__(self):
+        return f"Answer: {self.answer} [{self.correct}] [ID: {self.questionID}]"
