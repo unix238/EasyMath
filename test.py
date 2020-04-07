@@ -24,3 +24,5 @@ def detail(id):
 	question = models.Question.query.get(id)
 	answers = models.Answer.query.filter_by(questionID = id)
 	return render_template('detail.html', answers=answers, question=question)
+
+

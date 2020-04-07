@@ -21,9 +21,15 @@
           <div class="col-sm">
             <h1 class="mt-5">Question:</h1>
             <h2>{{question.body}}</h2>
-            {%for i in answers%}
-                <p class="mt-5">{{i.answer}}</p>
+            <form action="#" method="POST">
+              {%for i in answers%}
+                <a href="#">
+                  <p class="mt-5">
+                    {{i.answer}}
+                  </p>
+                </a>
             {%endfor%}
+            </form>
           </div>
           <div class="col-sm">
             
